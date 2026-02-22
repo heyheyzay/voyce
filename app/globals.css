@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #D4FF00;
+  --color-primary-hover: #BFE600;
+  --color-teal: #00897B;
+  --color-teal-hover: #00796B;
+
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  --shadow-sm: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased;
+    font-family: var(--font-sans), sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif), serif;
+    text-wrap: balance;
+  }
+
+  h1 { @apply text-4xl font-normal; }
+  h2 { @apply text-3xl font-normal; }
+  h3 { @apply text-2xl font-normal; }
+  h4 { @apply text-xl font-normal; }
+
+  p {
+    @apply text-base text-gray-600;
+    text-wrap: pretty;
+  }
+}
+
+/* Keyframes for stack animations */
+@keyframes stack-hover-1 {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-8px, -6px) rotate(-4deg); }
+}
+
+@keyframes stack-hover-2 {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(6px, -3px) rotate(2deg); }
+}
+
+@keyframes stack-hover-3 {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@layer components {
+  .stack-group:hover .stack-layer-1 {
+    animation: stack-hover-1 350ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .stack-group:hover .stack-layer-2 {
+    animation: stack-hover-2 350ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 50ms;
+  }
+  .stack-group:hover .stack-layer-3 {
+    animation: stack-hover-3 350ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 100ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stack-group:hover .stack-layer-1,
+    .stack-group:hover .stack-layer-2,
+    .stack-group:hover .stack-layer-3 {
+      animation: none;
+      transform: none;
+    }
+
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

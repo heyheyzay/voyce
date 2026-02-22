@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack Animation Test</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f3f4f6;
+      font-family: sans-serif;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+    }
+
+    /* Keyframes for stack animations */
+    @keyframes stack-hover-1 {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate(-8px, -6px) rotate(-4deg);
+      }
+    }
+
+    @keyframes stack-hover-2 {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate(6px, -3px) rotate(2deg);
+      }
+    }
+
+    @keyframes stack-hover-3 {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+    }
+
+    .stack-group {
+      position: relative;
+      width: 256px;
+      height: 160px;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+
+    .stack-group:hover .stack-layer-1 {
+      animation: stack-hover-1 350ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .stack-group:hover .stack-layer-2 {
+      animation: stack-hover-2 350ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      animation-delay: 50ms;
+    }
+
+    .stack-group:hover .stack-layer-3 {
+      animation: stack-hover-3 350ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      animation-delay: 100ms;
+    }
+
+    .stack-layer-1,
+    .stack-layer-2,
+    .stack-layer-3 {
+      position: absolute;
+      inset: 0;
+    }
+
+    .paper {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      padding: 24px;
+    }
+
+    .stack-layer-1 .paper {
+      background: #e5e7eb;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .stack-layer-2 .paper {
+      background: #f3f4f6;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .stack-layer-3 .paper {
+      background: white;
+      box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .circle {
+      width: 24px;
+      height: 24px;
+      background: #9ca3af;
+      border-radius: 50%;
+      margin-bottom: 16px;
+    }
+
+    .line {
+      height: 12px;
+      background: #d1d5db;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .line:nth-child(2) { width: 75%; }
+    .line:nth-child(3) { width: 100%; }
+    .line:nth-child(4) { width: 85%; }
+
+    .status {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Hover over the stack to test animation</h1>
+
+    <div class="stack-group" id="stackGroup">
+      <!-- Layer 3 - Back -->
+      <div class="stack-layer-1">
+        <div class="paper">
+          <div class="circle"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+
+      <!-- Layer 2 - Middle -->
+      <div class="stack-layer-2">
+        <div class="paper">
+          <div class="circle"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+
+      <!-- Layer 1 - Front -->
+      <div class="stack-layer-3">
+        <div class="paper">
+          <div class="circle"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="status">
+      <p id="status">Hover to see animation</p>
+    </div>
+  </div>
+
+  <script>
+    const stackGroup = document.getElementById('stackGroup');
+    const status = document.getElementById('status');
+
+    stackGroup.addEventListener('mouseenter', () => {
+      status.textContent = '✅ Animation triggered!';
+    });
+
+    stackGroup.addEventListener('mouseleave', () => {
+      status.textContent = 'Hover to see animation';
+    });
+  </script>
+</body>
+</html>
